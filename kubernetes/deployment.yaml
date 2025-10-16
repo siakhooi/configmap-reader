@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configmap-reader
+  labels:
+    app: configmap-reader
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: configmap-reader
+  template:
+    metadata:
+      labels:
+        app: configmap-reader
+    spec:
+      serviceAccountName: configmap-reader-sa
+      containers:
+        - name: app
+          image: siakhooi/configmap-reader:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: CONFIG_DIR
+              value: /config
+            - name: READ_MODE
+              value: "api"
+            - name: CONFIGMAP_NAME
+              value: "configmap-reader-data"
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: configmap-reader-data

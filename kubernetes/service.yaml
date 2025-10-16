@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: configmap-reader
+  labels:
+    app: configmap-reader
+spec:
+  selector:
+    app: configmap-reader
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP

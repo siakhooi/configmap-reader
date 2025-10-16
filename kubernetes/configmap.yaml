@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-reader-data
+  labels:
+    app: configmap-reader
+data:
+  statusCode: "200"
+  body: |-
+    {"key": "value"}
