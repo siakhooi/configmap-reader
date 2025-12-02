@@ -1,3 +1,43 @@
+help:
+clean:
+	rm -rf dist target coverage \
+	.coverage \
+	src/configmap_reader/__pycache__ \
+	tests/__pycache__ \
+	.pytest_cache
+run:
+	poetry run configmap-reader
+set-version:
+	scripts/set-version.sh
+build:
+	poetry build
+install:
+	poetry install
+flake8:
+	poetry run flake8
+update:
+	poetry update
+test:
+	 poetry run pytest --capture=sys \
+	 --junit-xml=coverage/test-results.xml \
+	 --cov=configmap_reader \
+	 --cov-report term-missing  \
+	 --cov-report xml:coverage/coverage.xml \
+	 --cov-report html:coverage/coverage.html \
+	 --cov-report lcov:coverage/coverage.info
+
+all: clean set-version install flake8 build test
+
+release:
+	scripts/release.sh
+
+commit:
+	scripts/git-commit.sh
+	git push
+
+
+
+
 docker-build:
 	cd docker && docker build -t siakhooi/configmap-reader:latest .
 docker-push:
@@ -22,3 +62,4 @@ import:
 	k3d-image-import  siakhooi/configmap-reader:latest
 k3d-down:
 	k3d-down
+

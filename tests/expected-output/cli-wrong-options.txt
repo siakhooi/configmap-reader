@@ -1,0 +1,2 @@
+usage: configmap-reader [-h] [-v]
+configmap-reader: error: unrecognized arguments: -p

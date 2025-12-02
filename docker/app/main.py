@@ -13,12 +13,14 @@ K8S_NAMESPACE = os.getenv("NAMESPACE") or os.getenv("K8S_NAMESPACE")
 
 _k8s_client = None
 
+
 def _get_k8s_client():
     global _k8s_client
     if _k8s_client is not None:
         return _k8s_client
     try:
         from kubernetes import client, config
+
         # In-cluster config first; fallback to local kubeconfig for dev
         try:
             config.load_incluster_config()
@@ -27,7 +29,9 @@ def _get_k8s_client():
         _k8s_client = client.CoreV1Api()
         return _k8s_client
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to init Kubernetes client: {e}")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to init Kubernetes client: {e}"
+        )
 
 
 def read_config_dir() -> dict:
@@ -47,14 +51,23 @@ def read_config_dir() -> dict:
 
 def read_config_via_api() -> dict:
     if not CONFIGMAP_NAME:
-        raise HTTPException(status_code=500, detail="CONFIGMAP_NAME is not set for API read mode")
+        raise HTTPException(
+            status_code=500, detail="CONFIGMAP_NAME is not set for API read mode"  # noqa: E501
+        )
     if not K8S_NAMESPACE:
-        raise HTTPException(status_code=500, detail="NAMESPACE is not set for API read mode")
+        raise HTTPException(
+            status_code=500, detail="NAMESPACE is not set for API read mode"
+        )
     api = _get_k8s_client()
     try:
-        cm = api.read_namespaced_config_map(name=CONFIGMAP_NAME, namespace=K8S_NAMESPACE)
+        cm = api.read_namespaced_config_map(
+            name=CONFIGMAP_NAME, namespace=K8S_NAMESPACE
+        )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to read ConfigMap {K8S_NAMESPACE}/{CONFIGMAP_NAME}: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to read ConfigMap {K8S_NAMESPACE}/{CONFIGMAP_NAME}: {e}",  # noqa: E501
+        )
     data = cm.data or {}
     # Return as filename -> string content just like volume mode
     return dict(data)
@@ -77,7 +90,9 @@ def get_config():
     body = data.get("body")
 
     if status_code_raw is None or body is None:
-        raise HTTPException(status_code=500, detail="Missing required keys: statusCode or body")
+        raise HTTPException(
+            status_code=500, detail="Missing required keys: statusCode or body"
+        )
 
     try:
         status_code = int(status_code_raw)
@@ -99,4 +114,9 @@ def health():
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("app.main:app", host="0.0.0.0", port=int(os.getenv("PORT", "8000")), reload=False)
+    uvicorn.run(
+        "app.main:app",
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", "8000")),
+        reload=False,
+    )

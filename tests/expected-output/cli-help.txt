@@ -1,0 +1,7 @@
+usage: configmap-reader [-h] [-v]
+
+Read and return content of a configmap
+
+options:
+  -h, --help     show this help message and exit
+  -v, --version  show program's version number and exit
