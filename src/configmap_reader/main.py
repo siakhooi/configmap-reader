@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 import os
 import pathlib
 import json
+import uvicorn
 
 app = FastAPI()
 
@@ -52,7 +53,8 @@ def read_config_dir() -> dict:
 def read_config_via_api() -> dict:
     if not CONFIGMAP_NAME:
         raise HTTPException(
-            status_code=500, detail="CONFIGMAP_NAME is not set for API read mode"  # noqa: E501
+            status_code=500,
+            detail="CONFIGMAP_NAME is not set for API read mode",  # noqa: E501
         )
     if not K8S_NAMESPACE:
         raise HTTPException(
@@ -111,8 +113,7 @@ def health():
     return {"status": "ok"}
 
 
-if __name__ == "__main__":
-    import uvicorn
+def run():
 
     uvicorn.run(
         "app.main:app",

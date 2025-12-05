@@ -1,6 +1,7 @@
 import argparse
 import sys
 from importlib.metadata import version
+from . import main
 
 
 def print_to_stderr_and_exit(e: Exception, exit_code: int) -> None:
@@ -20,3 +21,5 @@ def run() -> None:
     )
 
     parser.parse_args()
+
+    main.run()

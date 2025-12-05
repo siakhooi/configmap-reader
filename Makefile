@@ -4,7 +4,8 @@ clean:
 	.coverage \
 	src/configmap_reader/__pycache__ \
 	tests/__pycache__ \
-	.pytest_cache
+	.pytest_cache \
+	*.whl docker/*.whl
 run:
 	poetry run configmap-reader
 set-version:
@@ -35,10 +36,9 @@ commit:
 	scripts/git-commit.sh
 	git push
 
-
-
-
-docker-build:
+prepare-docker:
+	.github/scripts/prepare-docker.sh
+docker-build: prepare-docker
 	cd docker && docker build -t siakhooi/configmap-reader:latest .
 docker-push:
 	docker push siakhooi/configmap-reader:latest
@@ -54,7 +54,6 @@ curl:
 
 health:
 	curl -i http://localhost:8080/health
-
 
 k3d-up:
 	k3d-up

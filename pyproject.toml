@@ -17,6 +17,9 @@ license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "fastapi (>=0.123.9,<0.124.0)",
+    "uvicorn[standard] (>=0.38.0,<0.39.0)",
+    "kubernetes (>=34.1.0,<35.0.0)"
 ]
 
 [project.urls]

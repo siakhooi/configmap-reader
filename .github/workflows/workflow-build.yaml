@@ -1,7 +1,11 @@
-name: Deployment
+name: Build
 on:
-  release:
-    types: [created]
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - "*"
 
 jobs:
   build:
@@ -9,16 +13,6 @@ jobs:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-  release-assets:
-    needs: build
-    uses: ./.github/workflows/deploy-github-release-assets.yml
-    secrets:
-      TOKEN_TO_UPLOAD_ASSETS: ${{ secrets.TOKEN_TO_UPLOAD_ASSETS }}
-  # pypi:
-  #   needs: build
-  #   uses: ./.github/workflows/deploy-pypi.yml
-  #   secrets:
-  #     PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
   build-docker-images:
     needs: build
     uses: ./.github/workflows/build-docker-image.yml
@@ -26,4 +20,4 @@ jobs:
       PUBLISH_TO_GITHUB_REPO_TOKEN: ${{ secrets.PUBLISH_TO_GITHUB_REPO_TOKEN }}
       REGISTRY_PASSWORD_DOCKER: ${{ secrets.REGISTRY_PASSWORD_DOCKER }}
     with:
-      push-images: true
+      push-images: false

@@ -2,12 +2,6 @@
 
 microservice to read and return content of a configmap
 
-## Build
-
-```
-docker build -t siakhooi/configmap-reader:latest .
-docker push siakhooi/configmap-reader:latest
-```
 
 ## Deploy to clusters
 
@@ -31,35 +25,9 @@ curl http://localhost:8080/config
 
 - edit the configmap `configmap-reader-data` and call again will return latest value
 
-## Deliverables
-
-- https://hub.docker.com/r/siakhooi/configmap-reader
-
-
-
-
-## Installation
-
-```
-pip install configmap_reader
-```
-
-## Usage
-
-```
-$ configmap-reader -h
-usage: configmap-reader [-h] [-v]
-
-Kafka Mock Messages Sender
-
-options:
-  -h, --help     show this help message and exit
-  -v, --version  show program's version number and exit
-
-```
-
 ## Links
 
+- https://hub.docker.com/r/siakhooi/configmap-reader
 - https://pypi.org/project/configmap_reader/
 - https://github.com/siakhooi/configmap-reader
 - https://sonarcloud.io/project/overview?id=siakhooi_configmap-reader
