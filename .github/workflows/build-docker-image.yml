@@ -24,8 +24,7 @@ jobs:
         with:
           name: dist-3.13
           path: ./dist/
-      - run: .github/scripts/prepare-docker.sh
-      - run: ls -l
+      - run: ls -l . ./dist/ ./docker
       - run: cat release.env >> $GITHUB_ENV
       - uses: docker/login-action@v3
         if: ${{ inputs.push-images }}
@@ -42,7 +41,7 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: ./
-          file: ./deploy/docker/Dockerfile
+          file: ./docker/Dockerfile
           push: ${{ inputs.push-images }}
           tags: |
             ${{ env.DOCKER_IMAGE_NAME }}:latest
