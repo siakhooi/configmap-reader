@@ -22,8 +22,8 @@ jobs:
           fetch-depth: 0
       - uses: actions/download-artifact@v6
         with:
-          name: deliverables
-          path: ./
+          name: dist-3.13
+          path: ./dist/
       - run: .github/scripts/prepare-docker.sh
       - run: ls -l
       - run: cat release.env >> $GITHUB_ENV
