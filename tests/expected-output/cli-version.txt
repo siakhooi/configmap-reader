@@ -1,1 +1,1 @@
-configmap-reader 0.0.1
+configmap-reader 0.1.0
