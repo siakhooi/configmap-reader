@@ -1,7 +1,7 @@
 [project]
 name = "configmap_reader"
 version = "0.1.0"
-description = "Kafka Mock Messages Sender"
+description = "microservice to read and return content of a configmap"
 authors = [
     {name = "Siak Hooi",email = "siakhooi@gmail.com"}
 ]
