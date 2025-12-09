@@ -1,12 +1,6 @@
 import argparse
-import sys
 from importlib.metadata import version
 from . import main
-
-
-def print_to_stderr_and_exit(e: Exception, exit_code: int) -> None:
-    print(f"Error: {e}", file=sys.stderr)
-    exit(exit_code)
 
 
 def run() -> None:

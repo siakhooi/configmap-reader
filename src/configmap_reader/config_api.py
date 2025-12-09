@@ -54,5 +54,4 @@ def read(configmap_name: str, namespace: str) -> dict:
             detail=f"Failed to read ConfigMap {namespace}/{configmap_name}: {e}",  # noqa: E501
         )
     data = cm.data or {}
-    # Return as filename -> string content just like volume mode
     return dict(data)
