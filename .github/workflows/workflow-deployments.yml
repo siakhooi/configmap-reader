@@ -17,8 +17,6 @@ jobs:
   pypi:
     needs: build
     uses: ./.github/workflows/deploy-pypi.yml
-    secrets:
-      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
   build-docker-images:
     needs: build
     uses: ./.github/workflows/build-docker-image.yml
