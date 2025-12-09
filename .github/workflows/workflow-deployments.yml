@@ -16,9 +16,9 @@ jobs:
       TOKEN_TO_UPLOAD_ASSETS: ${{ secrets.TOKEN_TO_UPLOAD_ASSETS }}
   pypi:
     needs: build
-    permissions:
-      id-token: write
     uses: ./.github/workflows/deploy-pypi.yml
+    secrets:
+      PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
   build-docker-images:
     needs: build
     uses: ./.github/workflows/build-docker-image.yml
