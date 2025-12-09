@@ -15,12 +15,33 @@ spec:
         app: configmap-reader
     spec:
       serviceAccountName: configmap-reader-sa
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: app
           image: siakhooi/configmap-reader:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
           env:
             - name: CONFIG_DIR
               value: /config
