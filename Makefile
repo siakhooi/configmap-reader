@@ -62,3 +62,5 @@ import:
 k3d-down:
 	k3d-down
 
+fix-cert:
+	pip install pip-system-certs --trusted-host pypi.org --trusted-host files.pythonhosted.org
