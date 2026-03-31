@@ -1,11 +1,8 @@
 help:
 clean:
-	rm -rf dist target coverage \
-	.coverage \
-	src/configmap_reader/__pycache__ \
-	tests/__pycache__ \
-	.pytest_cache \
-	*.whl docker/*.whl
+	rm -rf dist target coverage .coverage \
+	src/configmap_reader/__pycache__  tests/__pycache__ .pytest_cache \
+	*.whl docker/*.whl .tox
 run:
 	poetry run configmap-reader
 set-version:
@@ -32,10 +29,6 @@ all: clean set-version install flake8 build tox-run
 release:
 	scripts/release.sh
 
-commit:
-	scripts/git-commit.sh
-	git push
-
 prepare-docker:
 	.github/scripts/prepare-docker.sh
 docker-build: prepare-docker
@@ -61,10 +54,5 @@ import:
 	k3d-image-import  siakhooi/configmap-reader:latest
 k3d-down:
 	k3d-down
-
-fix-cert:
-	pip install pip-system-certs --trusted-host pypi.org --trusted-host files.pythonhosted.org
-fix-pyenv:
-	 pyenv versions --bare > .python-version
 tox-run:
 	tox run
