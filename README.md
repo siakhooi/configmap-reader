@@ -44,7 +44,6 @@ curl http://localhost:8080/config
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/siakhooi/configmap-reader?logo=github)
 ![GitHub top language](https://img.shields.io/github/languages/top/siakhooi/configmap-reader?logo=github)
 ![GitHub language count](https://img.shields.io/github/languages/count/siakhooi/configmap-reader?logo=github)
-![Lines of code](https://img.shields.io/tokei/lines/github/siakhooi/configmap-reader?logo=github)
 ![GitHub repo size](https://img.shields.io/github/repo-size/siakhooi/configmap-reader?logo=github)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/siakhooi/configmap-reader?logo=github)
 
